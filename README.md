@@ -1,8 +1,8 @@
-## 🎯 Purpose
+## Purpose
 
 This framework is built to test Android Auto functionality by simulating the CAN bus messages that would be sent between an Android Auto head unit and vehicle ECUs (Electronic Control Units). 
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Clone repository
@@ -19,7 +19,7 @@ robot tests/
 robot tests/media_playback.robot
 ```
 
-## 📋 Test Coverage
+## Test Coverage
 
 | Test Suite | Description | Tests |
 |------------|-------------|-------|
@@ -32,7 +32,7 @@ robot tests/media_playback.robot
 
 **Total: 38 tests**
 
-## 🛠 Technology Stack
+## Technology Stack
 
 | Component | Technology |
 |-----------|------------|
@@ -43,7 +43,7 @@ robot tests/media_playback.robot
 | CI/CD | GitHub Actions |
 | Version Control | Git |
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 android-auto-test-framework/
@@ -68,7 +68,7 @@ android-auto-test-framework/
 └── README.md
 ```
 
-## 🔧 CAN Message Reference
+## CAN Message Reference
 
 | CAN ID | Function | Data Format |
 |--------|----------|-------------|
@@ -77,7 +77,7 @@ android-auto-test-framework/
 | `0x300` | Bluetooth | `61 01`=Connected, `61 00`=Disconnected |
 | `0x400` | Navigation | `71 01`=Active, `71 00`=Inactive |
 
-## 🔗 CI/CD
+## CI/CD
 
 Tests run automatically on:
 - Every push to main/master
