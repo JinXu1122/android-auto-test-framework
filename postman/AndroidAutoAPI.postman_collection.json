@@ -1,0 +1,324 @@
+{
+  "info": {
+    "name": "Android Auto API Test",
+    "description": "API tests for Android Auto infotainment system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API - Get Vehicle Status",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Bluetooth connected is false', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.bluetooth_connected).to.eql(false);",
+              "});",
+              "pm.test('Media state is stopped', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.media_state).to.eql('stopped');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/vehicle/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "vehicle", "status"]
+        }
+      }
+    },
+    {
+      "name": "API - Get Media State",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/media/state",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "media", "state"]
+        }
+      }
+    },
+    {
+      "name": "API - Update Navigation Destination",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Status is confirmed', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.status).to.eql('confirmed');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"destination\": \"Home\",\n    \"latitude\": 45.4215,\n    \"longitude\": -75.6972\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/navigation/destination",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "navigation", "destination"]
+        }
+      }
+    },
+    {
+      "name": "API - Telemetry Data Collection",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 201', function() {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "pm.test('Data collected is true', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.collected).to.eql(true);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"vehicle_id\": \"V12345\",\n    \"timestamp\": \"2026-05-04T10:30:00Z\",\n    \"speed\": 65,\n    \"fuel_level\": 0.75\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/telemetry/data",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "telemetry", "data"]
+        }
+      }
+    },
+    {
+      "name": "API - Bluetooth Connection State Change",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test('Bluetooth connected is false', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.connected).to.eql(false);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/bluetooth/status",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "bluetooth", "status"]
+        }
+      }
+    },
+    {
+      "name": "API - Media Control Commands",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"command\": \"play\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/media/control",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "media", "control"]
+        }
+      }
+    },
+    {
+      "name": "API - Navigation Route Update",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', function() {",
+              "    pm.response.to.have.status(200);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/navigation/route",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "navigation", "route"]
+        }
+      }
+    },
+    {
+      "name": "API - Batch Telemetry Upload",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 201', function() {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "pm.test('Collected count is 2', function() {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.collected_count).to.eql(2);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"vehicle_id\": \"V12345\",\n    \"entries\": [{\"timestamp\": \"2026-05-04T10:00:00Z\", \"speed\": 60}, {\"timestamp\": \"2026-05-04T10:05:00Z\", \"speed\": 65}]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/telemetry/batch",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "telemetry", "batch"]
+        }
+      }
+    },
+    {
+      "name": "API - Error Handling - Invalid Endpoint",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 404', function() {",
+              "    pm.response.to.have.status(404);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/invalid/endpoint",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "invalid", "endpoint"]
+        }
+      }
+    },
+    {
+      "name": "API - Error Handling - Invalid Payload",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 400', function() {",
+              "    pm.response.to.have.status(400);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"invalid_field\": \"value\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/v1/navigation/destination",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "v1", "navigation", "destination"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ]
+}

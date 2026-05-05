@@ -1,0 +1,12 @@
+# Test results
+test-results/
+*.log
+*.html
+output.xml
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store

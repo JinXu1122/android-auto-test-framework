@@ -1,0 +1,30 @@
+name: Postman API Tests
+
+# Run Postman tests with Newman on push/PR
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  postman-tests:
+    name: Run Postman API Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman Collection
+        run: newman run postman/AndroidAutoAPI.postman_collection.json --reporters cli,junit --reporter-junit-export results/test-results.xml
+
+      - name: Upload Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postman-test-results
+          path: results/
+          retention-days: 30
