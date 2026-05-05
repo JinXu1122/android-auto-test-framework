@@ -1,20 +1,36 @@
-# Android Auto Test Automation Framework
-
-A Robot Framework-based test automation framework for validating Android Auto / CarPlay infotainment systems by simulating CAN bus messages.
-
 ## 🎯 Purpose
 
-This framework enables QA engineers to test Android Auto functionality by simulating the CAN bus messages that would be sent between an Android Auto head unit and vehicle ECUs (Electronic Control Units). This allows for automated testing without requiring a physical vehicle or hardware-in-the-loop (HIL) setup.
+This framework is built to test Android Auto functionality by simulating the CAN bus messages that would be sent between an Android Auto head unit and vehicle ECUs (Electronic Control Units). 
+
+## 🚀 Quick Start
+
+```bash
+# Clone repository
+git clone https://github.com/JinXu1122/android-auto-test-framework.git
+cd android-auto-test-framework
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run all tests
+robot tests/
+
+# Run specific test suite
+robot tests/media_playback.robot
+```
 
 ## 📋 Test Coverage
 
-| Test Suite | Description |
-|------------|-------------|
-| `media_playback.robot` | Media play/pause/stop, track navigation |
-| `voice_command.robot` | Voice assistant activation/deactivation |
-| `bluetooth.robot` | BT pairing, connection, disconnection |
-| `navigation.robot` | Navigation start/stop, route guidance |
-| `integration.robot` | End-to-end multi-feature workflows |
+| Test Suite | Description | Tests |
+|------------|-------------|-------|
+| `media_playback.robot` | Media play/pause/stop, track navigation | 7 |
+| `voice_command.robot` | Voice assistant activation/deactivation | 5 |
+| `bluetooth.robot` | BT pairing, connection, disconnection | 6 |
+| `navigation.robot` | Navigation start/stop, route guidance | 5 |
+| `integration.robot` | End-to-end multi-feature workflows | 5 |
+| `api_testing.robot` | REST API validation | 10 |
+
+**Total: 38 tests**
 
 ## 🛠 Technology Stack
 
@@ -22,40 +38,10 @@ This framework enables QA engineers to test Android Auto functionality by simula
 |-----------|------------|
 | Test Framework | Robot Framework 6.1.1 |
 | Language | Python 3.8+ |
-| CAN Simulation | Custom `can_lib` library |
+| CAN Simulation | Custom library |
+| API Testing | Postman + Newman |
 | CI/CD | GitHub Actions |
 | Version Control | Git |
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Python 3.8 or higher
-- pip (Python package manager)
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/android-auto-test-framework.git
-cd android-auto-test-framework
-
-# Install dependencies
-pip install -r requirements.txt
-```
-
-### Run Tests
-
-```bash
-# Run all tests
-robot tests/
-
-# Run specific test suite
-robot tests/media_playback.robot
-
-# Run with detailed output
-robot --outputdir ./results tests/
-```
 
 ## 📁 Project Structure
 
@@ -63,15 +49,21 @@ robot --outputdir ./results tests/
 android-auto-test-framework/
 ├── .github/
 │   └── workflows/
-│       └── robot-tests.yml      # CI/CD pipeline
+│       ├── robot-tests.yml      # Robot Framework CI/CD
+│       └── postman-tests.yml    # Postman API CI/CD
 ├── libraries/
-│   └── __init__.py              # CAN simulator library
+│   └── __init__.py              # CAN simulator + API keywords
+├── postman/
+│   └── AndroidAutoAPI.postman_collection.json
 ├── tests/
 │   ├── media_playback.robot     # Media tests
 │   ├── voice_command.robot      # Voice assistant tests
 │   ├── bluetooth.robot          # Bluetooth tests
 │   ├── navigation.robot         # Navigation tests
-│   └── integration.robot        # Integration tests
+│   ├── integration.robot        # Integration tests
+│   └── api_testing.robot        # API tests
+├── resources/
+│   └── test_setup.robot         # Shared test resources
 ├── requirements.txt
 └── README.md
 ```
@@ -85,50 +77,15 @@ android-auto-test-framework/
 | `0x300` | Bluetooth | `61 01`=Connected, `61 00`=Disconnected |
 | `0x400` | Navigation | `71 01`=Active, `71 00`=Inactive |
 
-## 📖 Example Test
-
-```robot
-*** Test Cases ***
-Verify Media Playback
-    Connect To Can Bus
-    Clear Can History
-
-    # Send Play command
-    Send Can Message    0x100    41 01
-
-    # Verify media is playing
-    Verify Media State    playing
-
-    # Verify CAN message was sent
-    Can Message Should Contain    0x100    41
-```
-
 ## 🔗 CI/CD
 
 Tests run automatically on:
 - Every push to main/master
 - Every pull request
+- Manual trigger (workflow_dispatch)
 
-View the latest test results in the GitHub Actions tab.
+**Two CI/CD Pipelines:**
+- `robot-tests.yml` - Runs Robot Framework tests
+- `postman-tests.yml` - Runs Postman API tests via Newman
 
-## 📝 Key Features
 
-- **CAN Bus Simulation**: Mocks real vehicle CAN communication
-- **Keyword-Driven**: Easy-to-read Robot Framework syntax
-- **Modular Design**: Separate test suites per feature
-- **CI/CD Ready**: GitHub Actions integration
-- **Detailed Logging**: Comprehensive test reports and logs
-
-## 🎓 For Interview Preparation
-
-This project demonstrates:
-
-1. **Test Automation Skills**: Robot Framework expertise
-2. **Automotive Knowledge**: Understanding of CAN bus, infotainment systems
-3. **Framework Development**: Building custom test libraries in Python
-4. **CI/CD Pipeline**: GitHub Actions for automated testing
-5. **Integration Testing**: End-to-end multi-component scenarios
-
-## 📄 License
-
-MIT License
