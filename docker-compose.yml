@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Test runner service
+  test-runner:
+    build: .
+    volumes:
+      - ./test-results:/app/test-results
+    command: robot --outputdir test-results tests/
+
+  # Run specific test suite
+  test-media:
+    build: .
+    volumes:
+      - ./test-results:/app/test-results
+    command: robot --outputdir test-results tests/media_playback.robot
+
+  # Run with detailed output
+  test-verbose:
+    build: .
+    volumes:
+      - ./test-results:/app/test-results
+    command: robot --loglevel DEBUG --outputdir test-results tests/
+
+  # Shell access for debugging
+  test-shell:
+    build: .
+    volumes:
+      - ./test-results:/app/test-results
+    command: /bin/bash
+    stdin_open: true
+    tty: true
